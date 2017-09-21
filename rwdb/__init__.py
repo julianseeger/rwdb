@@ -390,6 +390,8 @@ class Document(DocumentBase):
     @classmethod
     def by_id(cls, _id):
         if not isinstance(_id, cls._id.type):
+            if isinstance(_id, bytes):
+                _id = _id.decode('utf-8')
             _id = cls._id.type(_id)
         return Query(cls, cls._connection).find(_id=_id).find_one()
 
